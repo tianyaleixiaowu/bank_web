@@ -35,6 +35,7 @@ layui.use(['form', 'layer', 'laydate', 'table', 'laytpl'], function () {
             {field: 'price', title: '价格(元)', width: 80, align: 'center'},
             {field: 'content', title: '备注', minWidth: 200, align: 'center'},
             {field: 'contact', title: '联系人', minWidth: 200, align: 'center'},
+            {field: 'company', title: '公司', minWidth: 200, align: 'center'},
             {title: '操作', width: 170, templet: '#newsListBar', fixed: "right", align: "center"}
         ]],
         request: {
