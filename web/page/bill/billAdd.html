@@ -16,14 +16,15 @@
 <form class="layui-form layui-row layui-col-space10">
 	<div class="layui-col-md3 layui-col-xs12">
 		<div class="layui-row layui-col-space10">
+            <input type="hidden" id="id">
 		</div>
 	</div>
 	<div class="layui-col-md5 layui-col-xs12">
 		<blockquote class="layui-elem-quote title"><i class="seraph icon-caidan"></i> 基本信息</blockquote>
 		<div class="border category">
 			<label class="layui-form-label"><i class="layui-icon">&#xe60e;</i>期限</label>
-			<div class="layui-input-block type">
-				<select name="type" lay-verify="required">
+			<div class="layui-input-block">
+				<select name="type" lay-verify="required" id="type">
 					<option value="1">短期</option>
 					<option value="2">半年</option>
 					<option value="3">一年</option>
@@ -35,62 +36,64 @@
 			<div class="layui-form-item">
 				<label class="layui-form-label"><i class="layui-icon">&#xe60e;</i>银行</label>
                 <div class="layui-input-block">
-                    <input type="text" class="layui-input bank" lay-verify="bank" placeholder="请输入银行名（例：北京银行）">
+                    <input type="text" class="layui-input" id="bank" lay-verify="required" placeholder="请输入银行名（例：北京银行）">
                 </div>
 			</div>
             <div class="layui-form-item">
                 <label class="layui-form-label"><i class="layui-icon">&#xe60e;</i>票价</label>
                 <div class="layui-input-block">
-                    <input type="text" class="layui-input billPrice" lay-verify="billPrice"
+                    <input type="text" class="layui-input" id="billPrice" lay-verify="number"
                            placeholder="请输入票面价格（万元，例子：5.6）">
                 </div>
             </div>
             <div class="layui-form-item">
                 <label class="layui-form-label"><i class="layui-icon">&#xe60e;</i>数量</label>
                 <div class="layui-input-block">
-                    <input type="text" class="layui-input count" lay-verify="count" placeholder="请输入数量（例：10）">
+                    <input type="text" class="layui-input" id="count" lay-verify="number" placeholder="请输入数量（例：10）">
                 </div>
             </div>
             <div class="layui-form-item">
                 <label class="layui-form-label"><i class="layui-icon">&#xe60e;</i>售价</label>
                 <div class="layui-input-block">
-                    <input type="text" class="layui-input price" lay-verify="price" placeholder="请输入售价（元，例：234）">
+                    <input type="text" class="layui-input" id="price" lay-verify="number" placeholder="请输入售价（元，例：234）">
                 </div>
             </div>
-            <div class="layui-form-item releaseDate">
+            <div class="layui-form-item">
                 <label class="layui-form-label"><i class="layui-icon">&#xe60e;</i>到期日</label>
                 <div class="layui-input-block">
-                    <input type="text" class="layui-input" id="release" placeholder="请选择日期和时间"/>
+                    <input type="text" class="layui-input" id="endTime" lay-verify="date"
+                           placeholder="请选择日期和时间"/>
                 </div>
             </div>
             <div class="layui-form-item">
                 <label class="layui-form-label"><i class="layui-icon">&#xe60e;</i>联系人</label>
                 <div class="layui-input-block">
-                    <input type="text" class="layui-input nickName" placeholder="请输入联系人姓名">
+                    <input type="text" class="layui-input" id="nickName" placeholder="请输入联系人姓名">
                 </div>
             </div>
             <div class="layui-form-item">
                 <label class="layui-form-label"><i class="layui-icon">&#xe60e;</i>公司名</label>
                 <div class="layui-input-block">
-                    <input type="text" class="layui-input company" placeholder="请输入公司名">
+                    <input type="text" class="layui-input" id="company" lay-verify="required" placeholder="请输入公司名">
                 </div>
             </div>
             <div class="layui-form-item">
                 <label class="layui-form-label"><i class="layui-icon">&#xe60e;</i>手机号</label>
                 <div class="layui-input-block">
-                    <input type="text" class="layui-input mobile" placeholder="请输入联系人手机号">
+                    <input type="text" class="layui-input" id="mobile" placeholder="请输入联系人手机号">
                 </div>
             </div>
             <div class="layui-form-item">
                 <label class="layui-form-label"><i class="layui-icon">&#xe60e;</i>备注</label>
                 <div class="layui-input-block">
-                    <input type="text" class="layui-input content"  placeholder="请输入备注信息">
+                    <input type="text" class="layui-input" id="content"  placeholder="请输入备注信息">
                 </div>
             </div>
 
 			<hr class="layui-bg-gray" />
 			<div class="layui-right">
-				<a class="layui-btn layui-btn-sm" lay-filter="addBill" lay-submit><i class="layui-icon">&#xe609;</i>发布
+				<a class="layui-btn layui-btn-sm" lay-filter="addBill" lay-submit>
+                    <i class="layui-icon">&#xe609;</i>发布
                 </a>
 			</div>
 		</div>

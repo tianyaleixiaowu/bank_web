@@ -20,8 +20,8 @@ layui.use(['form', 'layer', 'laydate', 'table', 'laytpl'], function () {
             {type: "checkbox", fixed: "left", width: 50},
             {field: 'id', title: 'ID', width: 80, align: "center"},
             {field: 'type', title: '期限', width: 80},
-            {field: 'bank', title: '银行', width: 100, align: 'center'},
-            {field: 'billPrice', title: '票面（万元）', width: 120, align: 'center'},
+            {field: 'bank', title: '银行',  width: 100, align: 'center'},
+            {field: 'billPrice', title: '票面（万元）',  width: 120, align: 'center'},
             {
                 field: 'endTime', title: '到期日', align: 'center', width: 110, templet: function (d) {
                     if (d.endTime.length>=10) {
@@ -31,11 +31,12 @@ layui.use(['form', 'layer', 'laydate', 'table', 'laytpl'], function () {
                     }
                 }
             },
-            {field: 'count', title: '数量', width: 60, align: 'center'},
-            {field: 'price', title: '价格(元)', width: 80, align: 'center'},
-            {field: 'content', title: '备注', minWidth: 200, align: 'center'},
-            {field: 'contact', title: '联系人', minWidth: 200, align: 'center'},
-            {field: 'company', title: '公司', minWidth: 200, align: 'center'},
+            {field: 'count', title: '数量',  width: 60, align: 'center'},
+            {field: 'price', title: '价格(元)',  width: 80, align: 'center'},
+            {field: 'content', title: '备注',  minWidth: 200, align: 'center'},
+            {field: 'mobile', title: '手机号',  minWidth: 200, align: 'center'},
+            {field: 'company', title: '公司',  minWidth: 200, align: 'center'},
+            {field: 'nickName', title: '联系人', minWidth: 200, align: 'center'},
             {title: '操作', width: 170, templet: '#newsListBar', fixed: "right", align: "center"}
         ]],
         request: {
@@ -49,6 +50,16 @@ layui.use(['form', 'layer', 'laydate', 'table', 'laytpl'], function () {
             statusCode: 200 //成功的状态码，默认：0
             , msgName: 'message' //状态信息的字段名称，默认：msg
         }
+    });
+
+    table.on('edit(billList)', function (obj) { //注：edit是固定事件名，test是table原始容器的属性 lay-filter="对应的值"
+        var field = obj.field;
+        var value = obj.value;
+        layer.msg(obj.data)
+        if ('billPrice') 
+        console.log(obj.value); //得到修改后的值
+        console.log(obj.field); //当前编辑的字段名
+        console.log(obj.data); //所在行的所有相关数据
     });
 
     //搜索【此功能需要后台配合，所以暂时没有动态效果演示】
@@ -66,26 +77,42 @@ layui.use(['form', 'layer', 'laydate', 'table', 'laytpl'], function () {
             }})
     });
 
-    //添加文章
+    //添加信息
     function addNews(edit) {
         var index = layui.layer.open({
-            title: "添加文章",
+            title: "添加信息",
             type: 2,
             content: "billAdd.html",
             success: function (layero, index) {
                 var body = layui.layer.getChildFrame('body', index);
                 if (edit) {
-                    body.find(".newsName").val(edit.newsName);
-                    body.find(".abstract").val(edit.abstract);
-                    body.find(".thumbImg").attr("src", edit.newsImg);
-                    body.find("#news_content").val(edit.content);
-                    body.find(".newsStatus select").val(edit.newsStatus);
-                    body.find(".openness input[name='openness'][title='" + edit.newsLook + "']").prop("checked", "checked");
-                    body.find(".newsTop input[name='newsTop']").prop("checked", edit.newsTop);
+                    if ("短期" == edit.type) {
+                        body.find("#type").val("1");
+                    } else if ("半年" == edit.type) {
+                        body.find("#type").val("2");
+                    } else if ("一年" == edit.type) {
+                        body.find("#type").val("3");
+                    } else if ("超期" == edit.type) {
+                        body.find("#type").val("4");
+                    }
+                    body.find("#bank").val(edit.bank);
+                    body.find("#billPrice").val(edit.billPrice);
+                    body.find("#count").val(edit.count);
+                    body.find("#price").val(edit.price);
+                    if ("未知" == edit.endTime) {
+                        body.find("#endTime").val("");
+                    } else {
+                        body.find("#endTime").val(edit.endTime);
+                    }
+                    body.find("#nickName").val(edit.nickName);
+                    body.find("#company").val(edit.company);
+                    body.find("#mobile").val(edit.mobile);
+                    body.find("#content").val(edit.content);
+                    body.find("#id").val(edit.id);
                     form.render();
                 }
                 setTimeout(function () {
-                    layui.layer.tips('点击此处返回文章列表', '.layui-layer-setwin .layui-layer-close', {
+                    layui.layer.tips('点击此处返回列表', '.layui-layer-setwin .layui-layer-close', {
                         tips: 3
                     });
                 }, 500)
@@ -125,23 +152,23 @@ layui.use(['form', 'layer', 'laydate', 'table', 'laytpl'], function () {
     })
 
     //列表操作
-    table.on('tool(newsList)', function (obj) {
+    table.on('tool(billList)', function (obj) {
         var layEvent = obj.event,
             data = obj.data;
 
         if (layEvent === 'edit') { //编辑
             addNews(data);
         } else if (layEvent === 'del') { //删除
-            layer.confirm('确定删除此文章？', {icon: 3, title: '提示信息'}, function (index) {
-                // $.get("删除文章接口",{
-                //     newsId : data.newsId  //将需要删除的newsId作为参数传入
-                // },function(data){
-                tableIns.reload();
-                layer.close(index);
-                // })
+
+            layer.confirm('确定删除此记录？', {icon: 3, title: '提示信息'}, function (index) {
+                layer.msg(data.id)
+                 $.post(Url + data.id, {
+                       //将需要删除的newsId作为参数传入
+                 },function(data){
+                    tableIns.reload();
+                    layer.close(index);
+                })
             });
-        } else if (layEvent === 'look') { //预览
-            layer.alert("此功能需要前台展示，实际开发中传入对应的必要参数进行文章内容页面访问")
         }
     });
 
