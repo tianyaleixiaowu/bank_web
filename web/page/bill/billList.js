@@ -125,8 +125,34 @@ layui.use(['form', 'layer', 'laydate', 'table', 'laytpl'], function () {
         })
     }
 
+    //添加信息
+    function addMoNews() {
+        var index = layui.layer.open({
+            title: "添加信息",
+            type: 2,
+            content: "billMoAdd.html",
+            success: function (layero, index) {
+                var body = layui.layer.getChildFrame('body', index);
+                setTimeout(function () {
+                    layui.layer.tips('点击此处返回列表', '.layui-layer-setwin .layui-layer-close', {
+                        tips: 3
+                    });
+                }, 500)
+            }
+        })
+        layui.layer.full(index);
+        //改变窗口大小时，重置弹窗的宽高，防止超出可视区域（如F12调出debug的操作）
+        $(window).on("resize", function () {
+            layui.layer.full(index);
+        })
+    }
+
     $(".addNews_btn").click(function () {
         addNews();
+    })
+
+    $(".addMohu_btn").click(function () {
+        addMoNews();
     })
 
     //批量删除
