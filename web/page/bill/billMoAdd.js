@@ -8,14 +8,28 @@ layui.use(['form','layer','laydate'],function(){
         //弹出loading
         var index = top.layer.msg('数据提交中，请稍候', {icon: 16, time: false, shade: 0.8});
         // 实际使用时的提交信息
-        $.post(Url + "mohu", {
-            nickName: $("#nickName").val(),    //发布人
-            company: $("#company").val(),    //公司名
-            mobile: $("#mobile").val(),    //手机号
-            content: $("#content").val()    //备注
-        }, function (res) {
-            console(res.toString())
-        })
+        $.ajax({
+            type: 'post',
+            url: Url + "mohu",
+            headers: {token: storage.getItem("token")},
+            data: {
+                type: $("#type").val(),  //期限
+                bank: $("#bank").val(),  //银行名
+                billPrice: $("#billPrice").val(),
+                count: $("#count").val(),  //数量
+                price: $("#price").val(),    //价格
+                endTime: $("#endTime").val(),    //到期日
+                nickName: $("#nickName").val(),    //发布人
+                company: $("#company").val(),    //公司名
+                mobile: $("#mobile").val(),    //手机号
+                content: $("#content").val(),    //备注
+                id: $("#id").val()
+            },
+            success: function (res) {
+                layer.msg("添加成功");
+            }
+
+        });
         setTimeout(function () {
             top.layer.close(index);
             top.layer.msg("信息添加成功！");

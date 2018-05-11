@@ -12,11 +12,38 @@ layui.use(['form','layer','jquery'],function(){
     //登录按钮
     form.on("submit(login)",function(data){
         $(this).text("登录中...").attr("disabled","disabled").addClass("layui-disabled");
+
+        $.ajax({
+            type: 'POST',
+            url: Url + "login",
+            data: {
+                'userName': $("#userName").val(),
+                'password': $("#password").val()
+            },
+            dataType: 'json',
+            success: function (data) {
+                if (data.code == 200)  {
+                    layer.msg(data.token)
+                    storage.setItem("token", data.token)
+                    window.location.href = "/index.html";
+                }
+                else {
+                    $("#login").text("登录").attr("disabled", false).addClass("layui-btn");
+                    layer.msg(data.message)
+                }
+            },
+            error: function (xhr) {
+                console.log(xhr);
+            }
+        });
+
         setTimeout(function(){
-            window.location.href = "/layuicms2.0";
+
         },1000);
         return false;
     })
+
+    
 
     //表单输入效果
     $(".loginBody .input-item").click(function(e){

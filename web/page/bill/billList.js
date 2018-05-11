@@ -6,6 +6,7 @@ layui.use(['form', 'layer', 'laydate', 'table', 'laytpl'], function () {
         laytpl = layui.laytpl,
         table = layui.table;
 
+    
     //新闻列表
     var tableIns = table.render({
         elem: '#billList',
@@ -16,6 +17,7 @@ layui.use(['form', 'layer', 'laydate', 'table', 'laytpl'], function () {
         limit: 15,
         limits: [10, 15, 20, 25],
         id: "billListTable",
+        headers: {token: storage.getItem("token")},
         cols: [[
             {type: "checkbox", fixed: "left", width: 50},
             {field: 'id', title: 'ID', width: 80, align: "center"},
@@ -50,6 +52,7 @@ layui.use(['form', 'layer', 'laydate', 'table', 'laytpl'], function () {
             statusCode: 200 //成功的状态码，默认：0
             , msgName: 'message' //状态信息的字段名称，默认：msg
         }
+
     });
 
     table.on('edit(billList)', function (obj) { //注：edit是固定事件名，test是table原始容器的属性 lay-filter="对应的值"
