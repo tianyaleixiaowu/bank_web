@@ -188,15 +188,18 @@ layui.use(['form', 'layer', 'laydate', 'table', 'laytpl'], function () {
         if (layEvent === 'edit') { //编辑
             addNews(data);
         } else if (layEvent === 'del') { //删除
-
             layer.confirm('确定删除此记录？', {icon: 3, title: '提示信息'}, function (index) {
-                layer.msg(data.id)
-                 $.post(Url + data.id, {
-                       //将需要删除的newsId作为参数传入
-                 },function(data){
-                    tableIns.reload();
-                    layer.close(index);
-                })
+                layer.msg(data.id);
+                $.ajax({
+                    type: 'post',
+                    url: Url + data.id,
+                    headers: {token: storage.getItem("token")},
+                    success: function (res) {
+                        tableIns.reload();
+                        layer.close(index);
+                    }
+
+                });
             });
         }
     });
