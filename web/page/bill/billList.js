@@ -158,28 +158,6 @@ layui.use(['form', 'layer', 'laydate', 'table', 'laytpl'], function () {
         addMoNews();
     })
 
-    //批量删除
-    $(".delAll_btn").click(function () {
-        var checkStatus = table.checkStatus('newsListTable'),
-            data = checkStatus.data,
-            newsId = [];
-        if (data.length > 0) {
-            for (var i in data) {
-                newsId.push(data[i].newsId);
-            }
-            layer.confirm('确定删除选中的文章？', {icon: 3, title: '提示信息'}, function (index) {
-                // $.get("删除文章接口",{
-                //     newsId : newsId  //将需要删除的newsId作为参数传入
-                // },function(data){
-                tableIns.reload();
-                layer.close(index);
-                // })
-            })
-        } else {
-            layer.msg("请选择需要删除的文章");
-        }
-    })
-
     //列表操作
     table.on('tool(billList)', function (obj) {
         var layEvent = obj.event,
