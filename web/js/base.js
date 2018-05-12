@@ -2,6 +2,8 @@
 layui.use(['layer'], function () {
     //Url = 'http://localhost:8888/';
      Url = 'http://dp.tianyalei.com/bank/';
+     Prefix = '/dp';
+   // Prefix = '';
     storage = window.localStorage;
 
     var $ = layui.jquery;
@@ -15,7 +17,7 @@ layui.use(['layer'], function () {
                         break;
                     case(401):
                         layer.msg("未登录");
-                        window.top.location.href = "/page/login/login.html";
+                        window.top.location.href = Prefix + "/page/login/login.html";
                         break;
                     case(403):
                         layer.msg("无权限执行此操作");

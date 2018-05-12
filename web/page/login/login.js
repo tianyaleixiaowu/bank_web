@@ -23,9 +23,8 @@ layui.use(['form','layer','jquery'],function(){
             dataType: 'json',
             success: function (data) {
                 if (data.code == 200)  {
-                    layer.msg(data.token)
                     storage.setItem("token", data.token)
-                    window.location.href = "/index.html";
+                    window.location.href = Prefix + "/index.html";
                 }
                 else {
                     $("#login").text("登录").attr("disabled", false).addClass("layui-btn");
