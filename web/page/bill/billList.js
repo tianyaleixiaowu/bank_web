@@ -6,7 +6,7 @@ layui.use(['form', 'layer', 'laydate', 'table', 'laytpl'], function () {
         laytpl = layui.laytpl,
         table = layui.table;
 
-    
+
     //新闻列表
     var tableIns = table.render({
         elem: '#billList',
@@ -14,31 +14,36 @@ layui.use(['form', 'layer', 'laydate', 'table', 'laytpl'], function () {
         cellMinWidth: 95,
         page: true,
         height: "full-125",
-        limit: 15,
-        limits: [10, 15, 20, 25],
+        limit: 50,
+        limits: [25, 50, 75, 100],
         id: "billListTable",
         headers: {token: storage.getItem("token")},
         cols: [[
             {type: "checkbox", fixed: "left", width: 50},
             {field: 'id', title: 'ID', width: 80, align: "center"},
             {field: 'type', title: '期限', width: 80},
-            {field: 'bank', title: '银行',  width: 100, align: 'center'},
-            {field: 'billPrice', title: '票面（万元）',  width: 120, align: 'center'},
+            {field: 'bank', title: '银行', width: 100, align: 'center'},
+            {field: 'billPrice', title: '票面（万元）', width: 120, align: 'center'},
             {
                 field: 'endTime', title: '到期日', align: 'center', width: 110, templet: function (d) {
-                    if (d.endTime.length>=10) {
+                    if (d.endTime.length >= 10) {
                         return d.endTime.substring(0, 10);
                     } else {
                         return d.endTime;
                     }
                 }
             },
-            {field: 'count', title: '数量',  width: 60, align: 'center'},
-            {field: 'price', title: '价格(元)',  width: 80, align: 'center'},
-            {field: 'content', title: '备注',  minWidth: 200, align: 'center'},
-            {field: 'mobile', title: '手机号',  minWidth: 200, align: 'center'},
-            {field: 'company', title: '公司',  minWidth: 200, align: 'center'},
+            {field: 'count', title: '数量', width: 60, align: 'center'},
+            {field: 'price', title: '价格(元)', width: 80, align: 'center'},
+            {field: 'content', title: '备注', minWidth: 200, align: 'center'},
+            {field: 'mobile', title: '手机号', minWidth: 200, align: 'center'},
+            {field: 'company', title: '公司', minWidth: 200, align: 'center'},
             {field: 'nickName', title: '联系人', minWidth: 200, align: 'center'},
+            {
+                field: 'createTime', title: '发布时间', align: 'center', width: 160, templet: function (d) {
+                    return d.createTime;
+                }
+            },
             {title: '操作', width: 170, templet: '#newsListBar', fixed: "right", align: "center"}
         ]],
         request: {
@@ -59,8 +64,8 @@ layui.use(['form', 'layer', 'laydate', 'table', 'laytpl'], function () {
         var field = obj.field;
         var value = obj.value;
         layer.msg(obj.data)
-        if ('billPrice') 
-        console.log(obj.value); //得到修改后的值
+        if ('billPrice')
+            console.log(obj.value); //得到修改后的值
         console.log(obj.field); //当前编辑的字段名
         console.log(obj.data); //所在行的所有相关数据
     });
@@ -77,7 +82,8 @@ layui.use(['form', 'layer', 'laydate', 'table', 'laytpl'], function () {
                 type: $(".type").val(),
                 bankType: $(".bankType").val(),
                 billPrice: $(".billPrice").val()
-            }})
+            }
+        })
     });
 
     //添加信息
