@@ -2,8 +2,14 @@
 	"contentManagement": [
 		{
 			"title": "票据列表",
-			"icon": "icon-text",
+			"icon": "&#xe66e;",
 			"href": "page/bill/billList.html",
+			"spread": false
+		},
+		{
+			"title": "实时报价",
+			"icon": "&#xe667;",
+			"href": "page/bill/currentPriceList.html",
 			"spread": false
 		}
 	],

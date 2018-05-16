@@ -1,8 +1,8 @@
 
 layui.use(['layer'], function () {
-    // Url = 'http://localhost:8888/';
-    Url = 'http://dp.tianyalei.com/bank/';
-    Prefix = '/dp';
+    //Url = 'http://localhost:8888/';
+     Url = 'http://dp.tianyalei.com/bank/';
+      Prefix = '/dp';
     // Prefix = '';
     storage = window.localStorage;
 

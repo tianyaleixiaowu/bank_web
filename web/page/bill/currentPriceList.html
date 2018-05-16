@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>实时价格</title>
+	<meta name="renderer" content="webkit">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+	<meta name="apple-mobile-web-app-status-bar-style" content="black">
+	<meta name="apple-mobile-web-app-capable" content="yes">
+	<meta name="format-detection" content="telephone=no">
+	<link rel="stylesheet" href="../../layui/css/layui.css" media="all" />
+	<link rel="stylesheet" href="../../css/public.css" media="all" />
+</head>
+<body class="childrenBody">
+<form class="layui-form">
+	<blockquote class="layui-elem-quote quoteBox">
+		<form class="layui-form">
+			<!--<div class="layui-inline">-->
+                <div class="layui-inline">
+                    <label class="layui-form-label">起始</label>
+                    <div class="layui-input-block">
+                        <input type="text" class="layui-input" id="begin" lay-verify="date"
+                               placeholder="请选择开始日期"/>
+                    </div>
+                </div>
+                <div class="layui-inline">
+                    <label class="layui-form-label">结束</label>
+                    <div class="layui-input-block">
+                        <input type="text" class="layui-input" id="end" lay-verify="date"
+                               placeholder="请选择结束日期"/>
+                    </div>
+                </div>
+                <a class="layui-btn search_btn" data-type="reload">搜索</a>
+                <button type="reset" class="layui-btn layui-btn-primary">重置</button>
+			<!--</div>-->
+            <p/>
+            <p/>
+		</form>
+	</blockquote>
+	<table id="billList" lay-filter="billList"></table>
+
+</form>
+<script type="text/javascript" src="../../layui/layui.js"></script>
+<script type="text/javascript" src="currentPriceList.js"></script>
+<script type="text/javascript" src="../../js/base.js"></script>
+</body>
+</html>
