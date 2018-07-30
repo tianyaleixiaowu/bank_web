@@ -17,7 +17,7 @@ layui.use(['form','layer','jquery'],function(){
             dataType: 'json',
             success: function (data) {
                 if (data.code == 200)  {
-                    storage.setItem("token", data.token)
+                    storage.setItem("token", data.token);
                     window.location.href = Prefix + "/index.html";
                 }
                 else {
